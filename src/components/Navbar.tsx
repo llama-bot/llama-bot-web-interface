@@ -1,50 +1,46 @@
-import { useContext } from "react"
+import { Layout } from "antd"
+import styled from "styled-components"
 
-import { Col, Layout, Menu, Row } from "antd"
-import { HomeOutlined } from "@ant-design/icons"
-
-import { SidebarCollapsedContext } from "../contexts"
+import { Link } from "react-router-dom"
 
 const { Header } = Layout
 
-const Navbar = () => {
-	const { isSidebarCollapsed, setSidebarCollapsed } = useContext(
-		SidebarCollapsedContext
-	)
+const StyledHeader = styled(Header)`
+	overflow: hidden;
 
+	* {
+		float: left;
+	}
+
+	a {
+		color: hsla(0, 0%, 100%, 0.65);
+		text-align: center;
+		padding: 0 1rem 0 1rem;
+		text-decoration: none;
+
+		:hover {
+			color: white;
+		}
+	}
+
+	.right {
+		float: right;
+	}
+`
+
+const Navbar = () => {
 	return (
-		<Header>
-			<Row justify="space-between" style={{ color: "white" }}>
-				<Col
-					onClick={() => {
-						setSidebarCollapsed(
-							(prevIsCollapsed) => !prevIsCollapsed
-						)
-					}}
-				>
-					{isSidebarCollapsed ? ">" : "<"}
-				</Col>
-				<Col>
-					<img
-						src="/llama.png"
-						alt="llama logo"
-						style={{ width: "60px" }}
-					/>
-				</Col>
-				<Col>
-					<Menu
-						theme="dark"
-						mode="horizontal"
-						style={{ width: "1000px" }}
-					>
-						<Menu.Item icon={<HomeOutlined />}>Home</Menu.Item>
-						<Menu.Item>Documentation</Menu.Item>
-						<Menu.Item>Status</Menu.Item>
-					</Menu>
-				</Col>
-				<Col>Login Button</Col>
-			</Row>
-		</Header>
+		<StyledHeader style={{ color: "white", justifyItems: "space-between" }}>
+			<img src="/llama.png" alt="llama logo" style={{ width: "60px" }} />
+
+			<Link to="/">Home</Link>
+			<Link to="/docs">Documentation</Link>
+			<Link to="/status">Status</Link>
+
+			<div className="right">
+				<Link to="/login">Login</Link>
+			</div>
+		</StyledHeader>
 	)
 }
 
