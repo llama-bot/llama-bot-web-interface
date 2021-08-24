@@ -1,39 +1,73 @@
+import { useContext } from "react"
+
 import { Layout, Menu } from "antd"
+import { blue } from "@ant-design/colors"
 import {
-	UserOutlined,
-	VideoCameraOutlined,
-	UploadOutlined,
+	AppstoreAddOutlined,
+	ClockCircleOutlined,
+	CaretLeftFilled,
+	CaretRightFilled,
+	DashboardOutlined,
+	ExclamationCircleOutlined,
 } from "@ant-design/icons"
 
 import { SidebarCollapsedContext } from "../contexts"
+import styled from "styled-components"
+
+const StyledMenuContainer = styled.div`
+	svg {
+		font-size: 1.25rem;
+	}
+`
+
+const SidebarCollapseButton = styled.div`
+	:hover {
+		background-color: ${blue[5]};
+	}
+`
 
 const Sidebar = () => {
+	const { isSidebarCollapsed, setSidebarCollapsed } = useContext(
+		SidebarCollapsedContext
+	)
+
 	return (
-		<SidebarCollapsedContext.Consumer>
-			{({ isSidebarCollapsed }) => (
-				<Layout.Sider
-					trigger={null}
-					collapsible
-					collapsed={isSidebarCollapsed}
-				>
-					<Menu
-						theme="dark"
-						mode="inline"
-						defaultSelectedKeys={["1"]}
+		<Layout.Sider trigger={null} collapsible collapsed={isSidebarCollapsed}>
+			<StyledMenuContainer>
+				<Menu theme="dark" mode="inline">
+					<Menu.Item icon={<DashboardOutlined />}>
+						Dashboard
+					</Menu.Item>
+					<Menu.Item icon={<AppstoreAddOutlined />}>
+						Modules
+					</Menu.Item>
+					<Menu.Item icon={<ClockCircleOutlined />}>Logs</Menu.Item>
+					<Menu.Item icon={<ExclamationCircleOutlined />}>
+						Incidents
+					</Menu.Item>
+					<SidebarCollapseButton
+						style={{
+							fontSize: 25,
+							position: "absolute",
+							bottom: 0,
+							margin: 0,
+							width: "100%",
+							padding: "1rem 0 1rem 0",
+							textAlign: "center",
+						}}
+						onClick={() => {
+							setSidebarCollapsed((prev) => !prev)
+						}}
 					>
-						<Menu.Item key="1" icon={<UserOutlined />}>
-							nav 1
-						</Menu.Item>
-						<Menu.Item key="2" icon={<VideoCameraOutlined />}>
-							nav 2
-						</Menu.Item>
-						<Menu.Item key="3" icon={<UploadOutlined />}>
-							nav 3
-						</Menu.Item>
-					</Menu>
-				</Layout.Sider>
-			)}
-		</SidebarCollapsedContext.Consumer>
+						{isSidebarCollapsed ? (
+							<CaretRightFilled />
+						) : (
+							<CaretLeftFilled />
+						)}
+					</SidebarCollapseButton>
+				</Menu>
+			</StyledMenuContainer>
+		</Layout.Sider>
 	)
 }
 
