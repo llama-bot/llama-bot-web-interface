@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { Link } from "react-router-dom"
 
 import { Layout, Menu } from "antd"
 import { blue } from "@ant-design/colors"
@@ -8,6 +9,7 @@ import {
 	CaretLeftFilled,
 	CaretRightFilled,
 	DashboardOutlined,
+	HomeOutlined,
 	ExclamationCircleOutlined,
 } from "@ant-design/icons"
 
@@ -35,15 +37,20 @@ const Sidebar = () => {
 		<Layout.Sider trigger={null} collapsible collapsed={isSidebarCollapsed}>
 			<StyledMenuContainer>
 				<Menu theme="dark" mode="inline">
+					<Menu.Item icon={<HomeOutlined />}>
+						<Link to="/">Home</Link>
+					</Menu.Item>
 					<Menu.Item icon={<DashboardOutlined />}>
-						Dashboard
+						<Link to="/dashboard">Dashboard</Link>
 					</Menu.Item>
 					<Menu.Item icon={<AppstoreAddOutlined />}>
-						Modules
+						<Link to="/modules">Modules</Link>
 					</Menu.Item>
-					<Menu.Item icon={<ClockCircleOutlined />}>Logs</Menu.Item>
+					<Menu.Item icon={<ClockCircleOutlined />}>
+						<Link to="/logs">Logs</Link>
+					</Menu.Item>
 					<Menu.Item icon={<ExclamationCircleOutlined />}>
-						Incidents
+						<Link to="/incidents">Incidents</Link>
 					</Menu.Item>
 					<SidebarCollapseButton
 						style={{

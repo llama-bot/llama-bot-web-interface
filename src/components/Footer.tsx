@@ -5,54 +5,34 @@ import styled from "styled-components"
 
 import { Layout } from "antd"
 
-import theming from "../theming"
-
 const StyledFooter = styled(Layout.Footer)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	text-align: center;
 
-	color: ${(props) =>
-		theming.theme(props.theme.currentTheme, {
-			light: "black",
-			dark: "white",
-		})};
-
-	background-color: ${(props) =>
-		theming.theme(props.theme.currentTheme, {
-			light: "white",
-			dark: "black",
-		})};
+	color: black;
+	background-color: rgb(0, 21, 41);
 `
 
 const StyledFooterContainer = styled.div`
+	width: 1500px;
+
+	color: grey;
+
 	display: flex;
 	justify-content: space-between;
-
+	align-items: center;
 	padding: 0 1rem 0 1rem;
-	width: 100%;
-	text-align: center;
-
-	max-width: ${theming.size.screen_size2};
-
-	.logo {
-		color: gray;
-	}
 `
 
 const GithubLink = styled.a`
 	font-size: 2rem;
 
-	color: ${(props) =>
-		theming.theme(props.theme.currentTheme, {
-			light: "lightgrey",
-			dark: "grey",
-		})};
+	color: grey;
 
 	&:hover {
-		color: ${(props) =>
-			theming.theme(props.theme.currentTheme, {
-				light: theming.light.color0,
-				dark: theming.dark.color0,
-			})};
+		color: white;
 	}
 `
 
@@ -61,11 +41,11 @@ export default class Footer extends React.Component {
 		return (
 			<StyledFooter>
 				<StyledFooterContainer>
-					<div className="logo">
+					<div>
 						Created by <b>developomp</b>
 					</div>
 					<GithubLink
-						href="https://github.com/developomp/developomp-site"
+						href="https://github.com/llama-bot/llama-bot-web-interface"
 						target="_blank"
 					>
 						<FontAwesomeIcon icon={faGithub} />

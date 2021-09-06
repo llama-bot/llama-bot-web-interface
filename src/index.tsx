@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import ReactDOM from "react-dom"
 
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import { ThemeProvider } from "styled-components"
-import storage from "local-storage-fallback"
+
+import { Layout } from "antd"
 
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import Footer from "./components/Footer"
-import { Layout } from "antd"
+
+import Home from "./routes/Home"
+import Dashboard from "./routes/Dashboard"
+import Modules from "./routes/Modules"
+import Logs from "./routes/Logs"
+import Incidents from "./routes/Incidents"
 
 import { SidebarCollapsedContext } from "./contexts"
 
@@ -16,66 +21,58 @@ import "antd/dist/antd.min.css"
 import "./index.css" // must be loaded last
 
 const App = () => {
-	const [currentTheme, setCurrentTheme] = useState("light")
 	const [isSidebarCollapsed, setSidebarCollapsed] = useState(false)
-
-	useEffect(() => {
-		// save theme when it is changed
-		storage.setItem("theme", currentTheme)
-	}, [currentTheme])
 
 	return (
 		<>
-			<ThemeProvider
-				theme={{
-					currentTheme: currentTheme,
-					// make setTheme function available in other components
-					setTheme: (setThemeTo: string) =>
-						setCurrentTheme(setThemeTo),
-				}}
+			<SidebarCollapsedContext.Provider
+				value={{ isSidebarCollapsed, setSidebarCollapsed }}
 			>
-				<SidebarCollapsedContext.Provider
-					value={{ isSidebarCollapsed, setSidebarCollapsed }}
-				>
-					<BrowserRouter>
-						<Layout style={{ minHeight: "100vh" }}>
-							<Layout className="site-layout">
-								<Navbar />
-								<Layout>
-									<Sidebar />
-									<Layout.Content
+				<BrowserRouter>
+					<Layout style={{ minHeight: "100vh" }}>
+						<Layout className="site-layout">
+							<Navbar />
+							<Layout>
+								<Sidebar />
+								<Layout.Content
+									style={{
+										padding: "2.5rem",
+										display: "flex",
+									}}
+								>
+									<div
+										className="site-layout-background site-layout-content"
 										style={{
-											padding: "2.5rem",
-											display: "flex",
+											height: "auto",
+											width: "100%",
+											borderRadius: "0.5rem",
 										}}
 									>
-										<div
-											className="site-layout-background site-layout-content"
-											style={{
-												height: "auto",
-												width: "100%",
-												borderRadius: "0.5rem",
-											}}
-										>
-											<h2>Dashboard</h2>
-											<Switch>
-												<Route path="/">Home!</Route>
-												<Route path="/docs">
-													Docs!
-												</Route>
-												<Route path="/status">
-													Status!
-												</Route>
-											</Switch>
-										</div>
-									</Layout.Content>
-								</Layout>
-								<Footer />
+										<Switch>
+											<Route exact path="/">
+												<Home />
+											</Route>
+											<Route exact path="/dashboard">
+												<Dashboard />
+											</Route>
+											<Route exact path="/modules">
+												<Modules />
+											</Route>
+											<Route exact path="/logs">
+												<Logs />
+											</Route>
+											<Route exact path="/incidents">
+												<Incidents />
+											</Route>
+										</Switch>
+									</div>
+								</Layout.Content>
 							</Layout>
+							<Footer />
 						</Layout>
-					</BrowserRouter>
-				</SidebarCollapsedContext.Provider>
-			</ThemeProvider>
+					</Layout>
+				</BrowserRouter>
+			</SidebarCollapsedContext.Provider>
 		</>
 	)
 }
