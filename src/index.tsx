@@ -49,19 +49,34 @@ const App = () => {
 										}}
 									>
 										<Switch>
-											<Route exact path="/">
+											<Route
+												exact
+												path={`${process.env.PUBLIC_URL}/`}
+											>
 												<Home />
 											</Route>
-											<Route exact path="/dashboard">
+											<Route
+												exact
+												path={`${process.env.PUBLIC_URL}/dashboard`}
+											>
 												<Dashboard />
 											</Route>
-											<Route exact path="/modules">
+											<Route
+												exact
+												path={`${process.env.PUBLIC_URL}/modules`}
+											>
 												<Modules />
 											</Route>
-											<Route exact path="/logs">
+											<Route
+												exact
+												path={`${process.env.PUBLIC_URL}/logs`}
+											>
 												<Logs />
 											</Route>
-											<Route exact path="/incidents">
+											<Route
+												exact
+												path={`${process.env.PUBLIC_URL}/incidents`}
+											>
 												<Incidents />
 											</Route>
 										</Switch>
