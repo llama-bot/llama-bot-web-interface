@@ -38,19 +38,25 @@ const Sidebar = () => {
 			<StyledMenuContainer>
 				<Menu theme="dark" mode="inline">
 					<Menu.Item icon={<HomeOutlined />}>
-						<Link to="/">Home</Link>
+						<Link to={`${process.env.PUBLIC_URL}/`}>Home</Link>
 					</Menu.Item>
 					<Menu.Item icon={<DashboardOutlined />}>
-						<Link to="/dashboard">Dashboard</Link>
+						<Link to={`${process.env.PUBLIC_URL}/dashboard`}>
+							Dashboard
+						</Link>
 					</Menu.Item>
 					<Menu.Item icon={<AppstoreAddOutlined />}>
-						<Link to="/modules">Modules</Link>
+						<Link to={`${process.env.PUBLIC_URL}/modules`}>
+							Modules
+						</Link>
 					</Menu.Item>
 					<Menu.Item icon={<ClockCircleOutlined />}>
-						<Link to="/logs">Logs</Link>
+						<Link to={`${process.env.PUBLIC_URL}/logs`}>Logs</Link>
 					</Menu.Item>
 					<Menu.Item icon={<ExclamationCircleOutlined />}>
-						<Link to="/incidents">Incidents</Link>
+						<Link to={`${process.env.PUBLIC_URL}/incidents`}>
+							Incidents
+						</Link>
 					</Menu.Item>
 					<SidebarCollapseButton
 						style={{

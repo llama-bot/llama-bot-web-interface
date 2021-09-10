@@ -48,7 +48,7 @@ const Navbar = () => {
 		<StyledHeader style={{ color: "white", justifyItems: "space-between" }}>
 			<div>
 				<img
-					src="/llama.png"
+					src={`${process.env.PUBLIC_URL}/llama.png`}
 					alt="llama logo"
 					style={{ width: "60px" }}
 				/>
@@ -70,7 +70,7 @@ const Navbar = () => {
 				<FontAwesomeIcon icon={faExternalLinkAlt} />
 			</a>
 			<div className="right">
-				<Link to="/login">Login</Link>
+				<Link to={`${process.env.PUBLIC_URL}/login`}>Login</Link>
 			</div>
 		</StyledHeader>
 	)
