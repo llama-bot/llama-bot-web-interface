@@ -34,9 +34,13 @@
 		"@types/react-router-dom": "^5.1.8",
 		"@types/styled-components": "^5.1.14",
 		"gh-pages": "^3.2.3",
+		"pre-push": "^0.1.1",
 		"react-scripts": "^4.0.3",
 		"source-map-explorer": "^2.5.2"
 	},
+	"pre-push": [
+		"deploy"
+	],
 	"eslintConfig": {
 		"extends": [
 			"react-app",
