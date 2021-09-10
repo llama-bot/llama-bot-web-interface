@@ -14,6 +14,7 @@ import Dashboard from "./routes/Dashboard"
 import Modules from "./routes/Modules"
 import Logs from "./routes/Logs"
 import Incidents from "./routes/Incidents"
+import Login from "./routes/Login"
 
 import { SidebarCollapsedContext } from "./contexts"
 
@@ -63,6 +64,9 @@ const App = () => {
 											</Route>
 											<Route exact path="/incidents">
 												<Incidents />
+											</Route>
+											<Route exact path="/login">
+												<Login />
 											</Route>
 										</Switch>
 									</div>

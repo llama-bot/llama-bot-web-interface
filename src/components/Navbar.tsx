@@ -70,7 +70,7 @@ const Navbar = () => {
 				<FontAwesomeIcon icon={faExternalLinkAlt} />
 			</a>
 			<div className="right">
-				<Link to={`${process.env.PUBLIC_URL}/login`}>Login</Link>
+				<Link to="/login">Login</Link>
 			</div>
 		</StyledHeader>
 	)
