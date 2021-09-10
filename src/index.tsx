@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import ReactDOM from "react-dom"
 
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { HashRouter, Switch, Route } from "react-router-dom"
 
 import { Layout } from "antd"
 
@@ -28,7 +28,7 @@ const App = () => {
 			<SidebarCollapsedContext.Provider
 				value={{ isSidebarCollapsed, setSidebarCollapsed }}
 			>
-				<BrowserRouter>
+				<HashRouter basename="/">
 					<Layout style={{ minHeight: "100vh" }}>
 						<Layout className="site-layout">
 							<Navbar />
@@ -49,34 +49,19 @@ const App = () => {
 										}}
 									>
 										<Switch>
-											<Route
-												exact
-												path={`${process.env.PUBLIC_URL}/`}
-											>
+											<Route exact path="/">
 												<Home />
 											</Route>
-											<Route
-												exact
-												path={`${process.env.PUBLIC_URL}/dashboard`}
-											>
+											<Route exact path="/dashboard">
 												<Dashboard />
 											</Route>
-											<Route
-												exact
-												path={`${process.env.PUBLIC_URL}/modules`}
-											>
+											<Route exact path="/modules">
 												<Modules />
 											</Route>
-											<Route
-												exact
-												path={`${process.env.PUBLIC_URL}/logs`}
-											>
+											<Route exact path="/logs">
 												<Logs />
 											</Route>
-											<Route
-												exact
-												path={`${process.env.PUBLIC_URL}/incidents`}
-											>
+											<Route exact path="/incidents">
 												<Incidents />
 											</Route>
 										</Switch>
@@ -86,7 +71,7 @@ const App = () => {
 							<Footer />
 						</Layout>
 					</Layout>
-				</BrowserRouter>
+				</HashRouter>
 			</SidebarCollapsedContext.Provider>
 		</>
 	)
