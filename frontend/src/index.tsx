@@ -1,7 +1,7 @@
 import React, { useState, Suspense, lazy } from "react"
 import ReactDOM from "react-dom"
 
-import { HashRouter, Switch, Route } from "react-router-dom"
+import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import Loader from "react-spinners/CircleLoader"
 import { Layout } from "antd"
@@ -21,7 +21,6 @@ const Dashboard = lazy(() => import("./routes/Dashboard"))
 const Modules = lazy(() => import("./routes/Modules"))
 const Logs = lazy(() => import("./routes/Logs"))
 const Incidents = lazy(() => import("./routes/Incidents"))
-const Login = lazy(() => import("./routes/Login"))
 
 const StyledSpinContainer = styled.div`
 	width: 100%;
@@ -55,7 +54,7 @@ const App = () => {
 			<SidebarCollapsedContext.Provider
 				value={{ isSidebarCollapsed, setSidebarCollapsed }}
 			>
-				<HashRouter basename="/">
+				<BrowserRouter basename="/">
 					<Layout style={{ minHeight: "100vh" }}>
 						<Layout className="site-layout">
 							<Navbar />
@@ -98,9 +97,6 @@ const App = () => {
 												<Route exact path="/incidents">
 													<Incidents />
 												</Route>
-												<Route exact path="/login">
-													<Login />
-												</Route>
 											</Switch>
 										</Suspense>
 									</div>
@@ -109,7 +105,7 @@ const App = () => {
 							<Footer />
 						</Layout>
 					</Layout>
-				</HashRouter>
+				</BrowserRouter>
 			</SidebarCollapsedContext.Provider>
 		</>
 	)

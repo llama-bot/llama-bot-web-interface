@@ -1,10 +1,14 @@
-import { Layout } from "antd"
-import styled from "styled-components"
+// import { useState } from "react"
+// import { useHistory } from "react-router-dom"
 
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import styled from "styled-components"
+import { Layout } from "antd"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
+
+import axios from "axios"
 
 const { Header } = Layout
 
@@ -44,6 +48,21 @@ const StyledHeader = styled(Header)`
 `
 
 const Navbar = () => {
+	// const history = useHistory()
+
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [userName, setUserName] = useState("")
+
+	useEffect(() => {
+		axios
+			.get("/api/user-data")
+			.then((data) => {
+				setIsLoggedIn(true)
+				setUserName(`${data.data.username}#${data.data.discriminator}`)
+			})
+			.catch()
+	}, [])
+
 	return (
 		<StyledHeader style={{ color: "white", justifyItems: "space-between" }}>
 			<div>
@@ -70,7 +89,9 @@ const Navbar = () => {
 				<FontAwesomeIcon icon={faExternalLinkAlt} />
 			</a>
 			<div className="right">
-				<Link to="/login">Login</Link>
+				<a href="/api/login">
+					{isLoggedIn ? `Logged in as ${userName}` : "Login"}
+				</a>
 			</div>
 		</StyledHeader>
 	)
