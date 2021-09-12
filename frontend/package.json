@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"start": "yarn build && firebase serve",
+		"start": "react-scripts start",
+		"serve": "yarn build && firebase serve",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"analyze": "source-map-explorer 'build/static/js/*.js'"
