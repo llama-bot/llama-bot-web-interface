@@ -25,7 +25,7 @@ app.use(
 	expressSession({
 		secret: secret.session,
 		resave: true,
-		saveUninitialized: false,
+		saveUninitialized: true,
 	})
 )
 app.use(passport.initialize())
