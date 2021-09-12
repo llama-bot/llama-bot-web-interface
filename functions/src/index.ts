@@ -17,6 +17,7 @@ import "./services/discordOauth"
 
 const app = express()
 
+app.set("trust proxy", 1)
 app.use(
 	cors({ origin: ["https://llama.developomp.com", "http://localhost:5000"] })
 )
