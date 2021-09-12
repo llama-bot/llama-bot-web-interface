@@ -25,6 +25,9 @@ app.use(
 		secret: secret.session,
 		resave: true,
 		saveUninitialized: false,
+		cookie: {
+			httpOnly: false,
+		},
 	})
 )
 app.use(passport.initialize())
@@ -34,7 +37,9 @@ dataRoutes(app)
 authRoutes(app)
 
 admin.initializeApp({
-	credential: admin.credential.cert(serviceAccountKey as admin.ServiceAccount),
+	credential: admin.credential.cert(
+		serviceAccountKey as admin.ServiceAccount
+	),
 })
 
 export const api = https.onRequest(app)
