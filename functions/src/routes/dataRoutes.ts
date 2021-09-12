@@ -7,7 +7,7 @@ import { Express, Request, Response, NextFunction } from "express"
 import config from "../config.json"
 
 const checkIfLoggedIn = (req: Request, res: Response, next: NextFunction) => {
-	if (req.isAuthenticated() && req.user) return next()
+	if (req.isAuthenticated()) return next()
 	res.status(401).send()
 }
 
