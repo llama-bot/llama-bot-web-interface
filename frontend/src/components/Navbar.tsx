@@ -1,6 +1,3 @@
-// import { useState } from "react"
-// import { useHistory } from "react-router-dom"
-
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { Layout } from "antd"
@@ -12,21 +9,33 @@ import axios from "axios"
 
 const { Header } = Layout
 
+const StyledLlamaBotText = styled.b`
+	font-size: 1.5rem;
+`
+
 const StyledHeader = styled(Header)`
-	overflow: hidden;
 	height: 3.75rem;
 
-	* {
-		float: left;
+	color: white;
+	line-height: 100%;
+
+	display: flex;
+	justify-items: space-between;
+
+	div {
+		display: flex;
+		align-items: center;
+	}
+
+	div:nth-child(1) {
+		flex: 1 auto;
 	}
 
 	a {
-		display: flex;
-		align-items: center;
 		color: hsla(0, 0%, 100%, 0.65);
-		text-align: center;
-		padding: 0 1rem 0 1rem;
 		text-decoration: none;
+
+		padding: 0 1rem;
 
 		:hover {
 			color: white;
@@ -37,19 +46,9 @@ const StyledHeader = styled(Header)`
 			font-size: x-small;
 		}
 	}
-
-	h2 {
-		color: white;
-	}
-
-	.right {
-		float: right;
-	}
 `
 
 const Navbar = () => {
-	// const history = useHistory()
-
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [userName, setUserName] = useState("")
 
@@ -64,33 +63,34 @@ const Navbar = () => {
 	}, [])
 
 	return (
-		<StyledHeader style={{ color: "white", justifyItems: "space-between" }}>
+		<StyledHeader>
 			<div>
 				<img
 					src={`${process.env.PUBLIC_URL}/llama.png`}
 					alt="llama logo"
 					style={{ width: "60px" }}
 				/>
-				<h2>Llama Bot</h2>
+				<StyledLlamaBotText>Llama Bot</StyledLlamaBotText>
+				<a
+					href="https://llama-bot.github.io/llama-bot-docs/docs/web-interface/overview"
+					target="_"
+				>
+					Docs&nbsp;
+					<FontAwesomeIcon icon={faExternalLinkAlt} />
+				</a>
+				<a href="https://discord.gg/aQqamSCUcS" target="_">
+					Discord&nbsp;
+					<FontAwesomeIcon icon={faExternalLinkAlt} />
+				</a>
+				<a href="https://llama-bot.github.io/status" target="_">
+					Status&nbsp;
+					<FontAwesomeIcon icon={faExternalLinkAlt} />
+				</a>
 			</div>
-			<a
-				href="https://llama-bot.github.io/llama-bot-docs/docs/web-interface/overview"
-				target="_"
-			>
-				Docs&nbsp;
-				<FontAwesomeIcon icon={faExternalLinkAlt} />
-			</a>
-			<a href="https://discord.gg/aQqamSCUcS" target="_">
-				Discord&nbsp;
-				<FontAwesomeIcon icon={faExternalLinkAlt} />
-			</a>
-			<a href="https://llama-bot.github.io/status" target="_">
-				Status&nbsp;
-				<FontAwesomeIcon icon={faExternalLinkAlt} />
-			</a>
-			<div className="right">
-				<a href="/api/login">
-					{isLoggedIn ? `Logged in as ${userName}` : "Login"}
+			<div>
+				{isLoggedIn && `Logged in as ${userName}`}
+				<a href={isLoggedIn ? "/api/logout" : "/api/login"}>
+					{isLoggedIn ? `Logout` : "Login"}
 				</a>
 			</div>
 		</StyledHeader>
