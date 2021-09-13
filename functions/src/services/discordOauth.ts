@@ -54,8 +54,7 @@ passport.use(
 
 				// check if user already exists
 				if (searchUserResult.success && searchUserResult.user) {
-					done(null, searchUserResult.user as Express.User)
-					return searchUserResult.user
+					return done(null, searchUserResult.user as Express.User)
 				} else {
 					const newUser: Express.User = {
 						...profile,
