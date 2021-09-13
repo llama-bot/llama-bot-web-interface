@@ -82,7 +82,7 @@ const Navbar = () => {
 					Discord&nbsp;
 					<FontAwesomeIcon icon={faExternalLinkAlt} />
 				</a>
-				<a href="https://llama-bot.github.io/status" target="_">
+				<a href="https://status.llama.developomp.com" target="_">
 					Status&nbsp;
 					<FontAwesomeIcon icon={faExternalLinkAlt} />
 				</a>
