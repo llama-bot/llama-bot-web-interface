@@ -5,8 +5,6 @@ import { Layout } from "antd"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 
-import axios from "axios"
-
 const { Header } = Layout
 
 const StyledLlamaBotText = styled.b`
@@ -53,11 +51,12 @@ const Navbar = () => {
 	const [userName, setUserName] = useState("")
 
 	useEffect(() => {
-		axios
-			.get("/api/user-data")
+		window
+			.fetch("/api/user-data")
+			.then((data) => data.json())
 			.then((data) => {
 				setIsLoggedIn(true)
-				setUserName(`${data.data.username}#${data.data.discriminator}`)
+				setUserName(`${data.username}#${data.discriminator}`)
 			})
 			.catch()
 	}, [])

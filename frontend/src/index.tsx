@@ -1,8 +1,6 @@
 import React, { useState, Suspense, lazy } from "react"
 import ReactDOM from "react-dom"
 
-import axios from "axios"
-
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import Loader from "react-spinners/CircleLoader"
@@ -17,8 +15,6 @@ import { SidebarCollapsedContext } from "./contexts"
 import "antd/dist/antd.min.css"
 import "./index.css" // must be loaded last
 import styled from "styled-components"
-
-axios.defaults.withCredentials = true
 
 const Home = lazy(() => import("./routes/Home"))
 const Dashboard = lazy(() => import("./routes/Dashboard"))
