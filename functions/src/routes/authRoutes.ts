@@ -18,12 +18,8 @@ export default (app: Express): void => {
 		res.redirect("/")
 	})
 
-	// OAuth2 callback
 	app.get(
 		config.pathPrefix + "/auth",
-		passport.authenticate("discord"),
-		(_, res) => {
-			res.redirect("/")
-		}
+		passport.authenticate("discord", { successRedirect: "/" })
 	)
 }
