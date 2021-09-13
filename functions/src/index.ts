@@ -3,7 +3,7 @@ import { https } from "firebase-functions"
 
 import express from "express"
 import cors from "cors"
-import session from "express-session"
+import session, { SessionOptions } from "express-session"
 import passport from "passport"
 
 import authRoutes from "./routes/authRoutes"
@@ -20,25 +20,25 @@ admin.initializeApp({
 	),
 })
 
+const sessionOption: SessionOptions = {
+	secret: secret.session,
+	resave: false,
+	saveUninitialized: false,
+}
+
 const app = express()
+
+if (process.env.FUNCTIONS_EMULATOR === "true") {
+	app.set("trust proxy", 1)
+	sessionOption.cookie = { secure: true }
+}
 
 app.use(
 	cors({ origin: ["https://llama.developomp.com", "http://localhost:5000"] })
 )
-app.use(
-	session({ secret: secret.session, resave: false, saveUninitialized: false })
-)
+app.use(session(sessionOption))
 app.use(passport.initialize())
 app.use(passport.session())
-app.use((_, res, next) => {
-	res.setHeader(
-		"Host",
-		process.env.FUNCTIONS_EMULATOR === "true"
-			? "http://localhost:5000"
-			: "https://llama.developomp.com"
-	)
-	next()
-})
 
 dataRoutes(app)
 authRoutes(app)
