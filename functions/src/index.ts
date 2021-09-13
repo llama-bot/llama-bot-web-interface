@@ -34,7 +34,10 @@ if (process.env.FUNCTIONS_EMULATOR !== "true") {
 }
 
 app.use(
-	cors({ origin: ["https://llama.developomp.com", "http://localhost:5000"] })
+	cors({
+		origin: ["https://llama.developomp.com", "http://localhost:5000"],
+		credentials: true,
+	})
 )
 app.use(session(sessionOption))
 app.use(passport.initialize())
