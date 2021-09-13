@@ -1,5 +1,4 @@
 {
 	"pathPrefix": "/api",
-	"region": "us-central1",
 	"scopes": ["identify", "email", "guilds"]
 }
