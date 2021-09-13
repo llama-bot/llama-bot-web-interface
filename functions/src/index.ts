@@ -28,7 +28,7 @@ const sessionOption: SessionOptions = {
 
 const app = express()
 
-if (process.env.FUNCTIONS_EMULATOR === "true") {
+if (process.env.FUNCTIONS_EMULATOR !== "true") {
 	app.set("trust proxy", 1)
 	sessionOption.cookie = { secure: true }
 }
