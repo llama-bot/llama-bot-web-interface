@@ -22,10 +22,6 @@ admin.initializeApp({
 
 const app = express()
 
-app.use((_, res, next) => {
-	res.setHeader("Cache-Control", "private")
-	next()
-})
 app.use(
 	cors({ origin: ["https://llama.developomp.com", "http://localhost:5000"] })
 )
@@ -34,6 +30,15 @@ app.use(
 )
 app.use(passport.initialize())
 app.use(passport.session())
+app.use((_, res, next) => {
+	res.setHeader(
+		"Host",
+		process.env.FUNCTIONS_EMULATOR === "true"
+			? "http://localhost:5000"
+			: "https://llama.developomp.com"
+	)
+	next()
+})
 
 dataRoutes(app)
 authRoutes(app)
