@@ -52,7 +52,7 @@ const Navbar = () => {
 
 	useEffect(() => {
 		window
-			.fetch("/api/user-data")
+			.fetch("/api/user-data", { credentials: "same-origin" })
 			.then((data) => data.json())
 			.then((data) => {
 				setIsLoggedIn(true)
