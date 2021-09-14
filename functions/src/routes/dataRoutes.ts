@@ -16,6 +16,8 @@ export default (app: Express): void => {
 		config.pathPrefix + "/user-data",
 		checkIfLoggedIn,
 		async (req, res) => {
+			res.setHeader("Cache-Control", "private")
+
 			req.user
 				? res.status(200).send(req.user)
 				: res.status(500).send("Failed to get user")

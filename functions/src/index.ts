@@ -22,15 +22,23 @@ admin.initializeApp({
 
 const sessionOption: SessionOptions = {
 	secret: secret.session,
+	name: "__session", // https://stackoverflow.com/a/44935288/12979111
 	resave: false,
 	saveUninitialized: false,
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+	},
 }
 
 const app = express()
 
 if (process.env.FUNCTIONS_EMULATOR !== "true") {
 	app.set("trust proxy", 1)
-	sessionOption.cookie = { secure: true }
+	sessionOption.cookie = {
+		...sessionOption.cookie,
+		sameSite: "none",
+		secure: true,
+	}
 }
 
 app.use(
