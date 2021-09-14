@@ -8,7 +8,7 @@ import config from "../config.json"
 
 const checkIfLoggedIn = (req: Request, res: Response, next: NextFunction) => {
 	if (req.isAuthenticated()) return next()
-	res.status(401).send()
+	res.status(401).send("Not authenticated")
 }
 
 export default (app: Express): void => {
