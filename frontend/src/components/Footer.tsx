@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import styled from "styled-components"
 
-import { Layout } from "antd"
+import { IonFooter } from "@ionic/react"
 
-const StyledFooter = styled(Layout.Footer)`
+const StyledFooter = styled(IonFooter)`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -36,22 +36,22 @@ const GithubLink = styled.a`
 	}
 `
 
-export default class Footer extends React.Component {
-	render() {
-		return (
-			<StyledFooter>
-				<StyledFooterContainer>
-					<div>
-						Created by <b>developomp</b>
-					</div>
-					<GithubLink
-						href="https://github.com/llama-bot/llama-bot-web-interface"
-						target="_blank"
-					>
-						<FontAwesomeIcon icon={faGithub} />
-					</GithubLink>
-				</StyledFooterContainer>
-			</StyledFooter>
-		)
-	}
+const Footer: React.FC = () => {
+	return (
+		<StyledFooter>
+			<StyledFooterContainer>
+				<div>
+					Created by <b>developomp</b>
+				</div>
+				<GithubLink
+					href="https://github.com/llama-bot/llama-bot-web-interface"
+					target="_blank"
+				>
+					<FontAwesomeIcon icon={faGithub} />
+				</GithubLink>
+			</StyledFooterContainer>
+		</StyledFooter>
+	)
 }
+
+export default Footer

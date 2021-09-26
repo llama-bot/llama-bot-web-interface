@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react"
+import { IonHeader } from "@ionic/react"
+
 import styled from "styled-components"
-import { Layout } from "antd"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
-
-const { Header } = Layout
 
 const StyledLlamaBotText = styled.b`
 	font-size: 1.5rem;
 `
 
-const StyledHeader = styled(Header)`
+const StyledHeader = styled(IonHeader)`
 	height: 3.75rem;
 
 	color: white;
@@ -46,7 +45,7 @@ const StyledHeader = styled(Header)`
 	}
 `
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [userName, setUserName] = useState("")
 
@@ -65,7 +64,7 @@ const Navbar = () => {
 		<StyledHeader>
 			<div>
 				<img
-					src={`${process.env.PUBLIC_URL}/llama.png`}
+					src={"assets/icon/llama.png"}
 					alt="llama logo"
 					style={{ width: "60px" }}
 				/>

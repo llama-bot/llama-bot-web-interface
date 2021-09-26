@@ -1,115 +1,8 @@
-import React, { useState, Suspense, lazy } from "react"
+import React from "react"
 import ReactDOM from "react-dom"
-
-import { BrowserRouter, Switch, Route } from "react-router-dom"
-
-import Loader from "react-spinners/CircleLoader"
-import { Layout } from "antd"
-
-import Navbar from "./components/Navbar"
-import Sidebar from "./components/Sidebar"
-import Footer from "./components/Footer"
-
-import { SidebarCollapsedContext } from "./contexts"
-
-import "antd/dist/antd.min.css"
-import "./index.css" // must be loaded last
-import styled from "styled-components"
-
-const Home = lazy(() => import("./routes/Home"))
-const Dashboard = lazy(() => import("./routes/Dashboard"))
-const Modules = lazy(() => import("./routes/Modules"))
-const Logs = lazy(() => import("./routes/Logs"))
-const Incidents = lazy(() => import("./routes/Incidents"))
-
-const StyledSpinContainer = styled.div`
-	width: 100%;
-	opacity: 0;
-
-	/* center elements */
-	display: flex;
-	align-content: center;
-	justify-content: center;
-
-	/* fade in */
-	animation-delay: 0.2s;
-	animation-duration: 2s;
-	animation-name: fadein;
-
-	@keyframes fadein {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-`
-
-const App = () => {
-	const [isSidebarCollapsed, setSidebarCollapsed] = useState(false)
-
-	return (
-		<>
-			<SidebarCollapsedContext.Provider
-				value={{ isSidebarCollapsed, setSidebarCollapsed }}
-			>
-				<BrowserRouter basename="/">
-					<Layout style={{ minHeight: "100vh" }}>
-						<Layout className="site-layout">
-							<Navbar />
-							<Layout>
-								<Sidebar />
-								<Layout.Content
-									style={{
-										padding: "2.5rem",
-										display: "flex",
-									}}
-								>
-									<div
-										className="site-layout-background site-layout-content"
-										style={{
-											height: "auto",
-											width: "100%",
-											borderRadius: "0.5rem",
-										}}
-									>
-										<Suspense
-											fallback={
-												<StyledSpinContainer>
-													<Loader size={150} />
-												</StyledSpinContainer>
-											}
-										>
-											<Switch>
-												<Route exact path="/">
-													<Home />
-												</Route>
-												<Route exact path="/dashboard">
-													<Dashboard />
-												</Route>
-												<Route exact path="/modules">
-													<Modules />
-												</Route>
-												<Route exact path="/logs">
-													<Logs />
-												</Route>
-												<Route exact path="/incidents">
-													<Incidents />
-												</Route>
-											</Switch>
-										</Suspense>
-									</div>
-								</Layout.Content>
-							</Layout>
-							<Footer />
-						</Layout>
-					</Layout>
-				</BrowserRouter>
-			</SidebarCollapsedContext.Provider>
-		</>
-	)
-}
+import App from "./App"
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
+import reportWebVitals from "./reportWebVitals"
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -117,3 +10,13 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById("root")
 )
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.unregister()
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals()

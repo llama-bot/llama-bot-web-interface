@@ -1,0 +1,7 @@
+{
+	"name": "llama-bot-web-interface",
+	"integrations": {
+		"capacitor": {}
+	},
+	"type": "react"
+}
