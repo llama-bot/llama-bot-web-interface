@@ -36,8 +36,6 @@ if (process.env.FUNCTIONS_EMULATOR !== "true") {
 	app.set("trust proxy", 1)
 	sessionOption.cookie = {
 		...sessionOption.cookie,
-		sameSite: "none",
-		secure: true,
 	}
 }
 
