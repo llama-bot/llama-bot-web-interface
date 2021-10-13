@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import styled from "styled-components"
 
-import { IonFooter } from "@ionic/react"
+const StyledFooter = styled.div`
+	min-height: 5rem;
+	margin-top: auto;
 
-const StyledFooter = styled(IonFooter)`
 	display: flex;
 	align-items: center;
 	justify-content: center;

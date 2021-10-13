@@ -1,35 +1,37 @@
 import { lazy, Suspense } from "react"
-import { IonApp } from "@ionic/react"
-import { IonReactRouter } from "@ionic/react-router"
-import { Route } from "react-router-dom"
-import styled from "styled-components"
+import { ThemeProvider } from "evergreen-ui"
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import styled, { createGlobalStyle, css } from "styled-components"
 
 import Loader from "react-spinners/CircleLoader"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 
-/* Core CSS required for Ionic components to work properly */
-import "@ionic/react/css/core.css"
-
-/* Basic CSS for apps built with Ionic */
-import "@ionic/react/css/normalize.css"
-import "@ionic/react/css/structure.css"
-import "@ionic/react/css/typography.css"
-
-/* Optional CSS utils that can be commented out */
-import "@ionic/react/css/padding.css"
-import "@ionic/react/css/float-elements.css"
-import "@ionic/react/css/text-alignment.css"
-import "@ionic/react/css/text-transformation.css"
-import "@ionic/react/css/flex-utils.css"
-import "@ionic/react/css/display.css"
-
-/* Theme variables */
-import "./theme/variables.css"
+import darkTheme from "./theme/dark"
 
 const Home = lazy(() => import("./pages/Home"))
 const Servers = lazy(() => import("./pages/Servers"))
-const Dashboard = lazy(() => import("./pages/Dashboard"))
+// const Dashboard = lazy(() => import("./pages/Dashboard"))
+
+// wrapping it using css because prettier extension does not work well with styled-components
+// https://github.com/styled-components/vscode-styled-components/issues/175
+const _globalStyle = css`
+	html,
+	body,
+	#root {
+		font-family: "Noto Sans KR", sans-serif;
+
+		height: 100vh;
+		margin: 0;
+
+		display: flex;
+		flex-direction: column;
+	}
+`
+
+const GlobalStyle = createGlobalStyle`
+	${_globalStyle}
+`
 
 const StyledSpinContainer = styled.div`
 	width: 100%;
@@ -57,33 +59,34 @@ const StyledSpinContainer = styled.div`
 
 const App: React.FC = () => {
 	return (
-		<IonApp>
-			<Suspense
-				fallback={
-					<StyledSpinContainer>
-						<Loader size={150} />
-					</StyledSpinContainer>
-				}
-			>
-				<IonReactRouter>
+		<>
+			<GlobalStyle />
+			<ThemeProvider value={darkTheme}>
+				<Suspense
+					fallback={
+						<StyledSpinContainer>
+							<Loader size={150} />
+						</StyledSpinContainer>
+					}
+				>
 					<Navbar />
+					<Router>
+						<Route exact path="/">
+							<Home />
+						</Route>
 
-					<Route exact path="/">
-						<Home />
-					</Route>
+						<Route exact path="/servers">
+							<Servers />
+						</Route>
 
-					<Route exact path="/servers">
-						<Servers />
-					</Route>
-
-					<Route exact path="/server/:server/dashboard">
+						{/* <Route exact path="/server/:server/dashboard">
 						<Dashboard />
-					</Route>
-
+					</Route> */}
+					</Router>
 					<Footer />
-				</IonReactRouter>
-			</Suspense>
-		</IonApp>
+				</Suspense>
+			</ThemeProvider>
+		</>
 	)
 }
 

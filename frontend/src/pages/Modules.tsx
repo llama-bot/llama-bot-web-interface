@@ -1,7 +1,5 @@
-import { IonHeader } from "@ionic/react"
-
 const Modules: React.FC = () => {
-	return <IonHeader>Modules</IonHeader>
+	return <h3>Modules</h3>
 }
 
 export default Modules

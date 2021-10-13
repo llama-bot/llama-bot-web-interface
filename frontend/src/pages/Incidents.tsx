@@ -1,9 +1,7 @@
-import { IonHeader } from "@ionic/react"
-
 const Incidents: React.FC = () => {
 	return (
 		<>
-			<IonHeader>Incidents</IonHeader>
+			<h3>Incidents</h3>
 		</>
 	)
 }

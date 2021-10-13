@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
-import { IonHeader } from "@ionic/react"
 
 import styled from "styled-components"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
+import { Button, LogOutIcon } from "evergreen-ui"
 
 const StyledLlamaBotText = styled.b`
 	font-size: 1.5rem;
 `
 
-const StyledHeader = styled(IonHeader)`
+const StyledHeader = styled.div`
 	height: 3.75rem;
 
 	color: white;
@@ -18,6 +18,8 @@ const StyledHeader = styled(IonHeader)`
 
 	display: flex;
 	justify-items: space-between;
+
+	padding: 0 0.5rem 0 0.5rem;
 
 	div {
 		display: flex;
@@ -42,6 +44,21 @@ const StyledHeader = styled(IonHeader)`
 			margin-top: 0.4rem;
 			font-size: x-small;
 		}
+	}
+`
+
+const StyledLoginButton = styled(Button)`
+	color: white;
+	padding: 8 12 8 12;
+	border-radius: 5;
+	background-color: indianred;
+
+	:hover {
+		background-color: firebrick !important;
+	}
+
+	:active {
+		background-color: darkred !important;
 	}
 `
 
@@ -87,9 +104,17 @@ const Navbar: React.FC = () => {
 			</div>
 			<div>
 				{isLoggedIn && `Logged in as ${userName}`}
-				<a href={isLoggedIn ? "/api/logout" : "/api/login"}>
-					{isLoggedIn ? `Logout` : "Login"}
-				</a>
+
+				<StyledLoginButton
+					appearance="mini1mal"
+					onClick={() => {
+						window.location.href = isLoggedIn
+							? "/api/logout"
+							: "/api/login"
+					}}
+				>
+					{isLoggedIn ? `${(<LogOutIcon />)} Logout` : "Login"}
+				</StyledLoginButton>
 			</div>
 		</StyledHeader>
 	)

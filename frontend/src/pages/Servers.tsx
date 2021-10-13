@@ -1,4 +1,3 @@
-import { IonHeader } from "@ionic/react"
 import styled from "styled-components"
 
 const StyledServers = styled.div`
@@ -8,7 +7,7 @@ const StyledServers = styled.div`
 const Servers: React.FC = () => {
 	return (
 		<StyledServers>
-			<IonHeader>Available servers</IonHeader>
+			<h3>Available servers</h3>
 		</StyledServers>
 	)
 }
