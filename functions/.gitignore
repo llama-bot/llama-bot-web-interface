@@ -1,6 +1,8 @@
-# Compiled JavaScript files
-/lib
+/node_modules/
 
-# sevrets
+# Compiled JavaScript files
+/lib/
+
+# secrets
 /src/secret.json
 /src/firebase-adminsdk.json
