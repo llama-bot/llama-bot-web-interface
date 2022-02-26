@@ -3,17 +3,15 @@
 	import { onMount } from "svelte"
 
 	let isLoggedIn = false
-	let userName = ""
+	let userData: UserData = undefined
 
 	onMount(() => {
-		// window
-		// 	.fetch("/api/user-data", { credentials: "same-origin" })
-		// 	.then((data) => data.json())
-		// 	.then((data) => {
-		// 		setIsLoggedIn(true)
-		// 		setUserName(`${data.username}#${data.discriminator}`)
-		// 	})
-		// 	.catch()
+		fetch("/api/user-data", { credentials: "same-origin" })
+			.then((data) => data.json())
+			.then((data) => {
+				isLoggedIn = true
+				userData = data
+			})
 	})
 </script>
 
@@ -42,12 +40,18 @@
 			</div>
 		</div>
 
-		<div class="login">
+		<div class="login-logout">
 			{#if isLoggedIn}
-				Logged in as {userName}
+				<div class="user">
+					<img
+						alt="user pfp"
+						src={`https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`}
+					/>
+					{userData.username}#{userData.discriminator}
+				</div>
 			{/if}
 
-			<div class="login-button">
+			<div class="login-logout-button">
 				<a href={isLoggedIn ? "/api/logout" : "/api/login"}>
 					{isLoggedIn ? "Logout" : "Login"}
 				</a>
@@ -105,18 +109,34 @@
 				}
 			}
 
-			.login {
+			.login-logout {
 				display: flex;
 				align-items: center;
 				justify-content: right;
+				gap: 0.5rem;
 
-				.login-button {
+				.user {
+					display: flex;
+					height: 100%;
+					padding: 0.1rem;
+					gap: 0.2rem;
+
+					align-items: center;
+
+					color: lightgray;
+
+					img {
+						height: 80%;
+						border-radius: 50%;
+					}
+				}
+
+				.login-logout-button {
 					display: flex;
 					align-items: center;
 					justify-content: center;
 
 					height: 100%;
-					padding: 0 1rem;
 
 					background-color: indianred;
 
@@ -129,7 +149,16 @@
 					}
 
 					a {
+						display: flex;
+
+						width: 100%;
+						height: 100%;
+
+						padding: 0 1rem;
+						align-items: center;
+
 						color: white;
+						text-align: center;
 						text-decoration: none;
 					}
 				}
