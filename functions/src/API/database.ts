@@ -11,37 +11,55 @@ interface UserResult extends DatabaseResult {
 }
 
 export default {
-	findUser: async (uid: string): Promise<UserResult> => {
-		let result
+	async findUser(uid: string): Promise<UserResult> {
 		try {
-			const user = await admin.firestore().collection("users").doc(uid).get()
+			const user = await admin
+				.firestore()
+				.collection("users")
+				.doc(uid)
+				.get()
 
-			result = user.exists
-				? { success: true, user: user.data() }
-				: { success: false, error: `user with uid ${uid} does not exist` }
-		} catch (error) {
-			logger.error("Error finding user", error)
-			result = { success: false, error: error.message }
-		}
-
-		return result
-	},
-	newUser: async (profile: Express.User): Promise<UserResult> => {
-		let result
-		try {
-			const newUserData = {
-				avatar: profile.avatar,
-				discriminator: profile.discriminator,
-				email: profile.email,
-				id: profile.id,
-				username: profile.username,
+			if (user.exists) {
+				return {
+					success: true,
+					user: user.data(),
+				}
+			} else {
+				return {
+					success: false,
+					error: `user with uid ${uid} does not exist`,
+				}
 			}
-			await firestore().doc(`/users/${profile.id}`).set(newUserData)
-			result = { success: true, user: newUserData }
+		} catch (error) {
+			return { success: false, error: error.message }
+		}
+	},
+
+	async newUser(profile: Express.User): Promise<UserResult> {
+		try {
+			await firestore().doc(`/users/${profile.id}`).set({
+				id: profile.id,
+				avatar: profile.avatar,
+				username: profile.username,
+				discriminator: profile.discriminator,
+			})
+
+			return { success: true, user: profile }
 		} catch (error) {
 			logger.error("Error creating user", error)
-			result = { success: false, error: error.message }
+
+			return { success: false, error: error.message }
 		}
-		return result
+	},
+
+	async updateUser(profile: Express.User): Promise<UserResult> {
+		await firestore().doc(`/users/${profile.id}`).update({
+			id: profile.id,
+			avatar: profile.avatar,
+			username: profile.username,
+			discriminator: profile.discriminator,
+		})
+
+		return { success: true, user: profile }
 	},
 }
