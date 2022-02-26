@@ -1,4 +1,4 @@
 {
 	"pathPrefix": "/api",
-	"scopes": ["identify", "email", "guilds"]
+	"scopes": ["identify"]
 }
