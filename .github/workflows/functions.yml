@@ -1,0 +1,48 @@
+name: Deploy functions
+on:
+  push:
+    paths:
+      - functions
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Install Dependencies
+        run: npm --prefix functions install
+
+      - name: Build
+        run: npm --prefix functions run build
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: functions/build
+          path: functions/build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: functions/lib
+          path: functions/lib
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
