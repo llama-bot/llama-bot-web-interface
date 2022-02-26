@@ -15,9 +15,7 @@ import secret from "./secret.json"
 import serviceAccountKey from "./firebase-adminsdk.json"
 
 admin.initializeApp({
-	credential: admin.credential.cert(
-		serviceAccountKey as admin.ServiceAccount
-	),
+	credential: admin.credential.cert(serviceAccountKey as admin.ServiceAccount),
 })
 
 const sessionOption: SessionOptions = {

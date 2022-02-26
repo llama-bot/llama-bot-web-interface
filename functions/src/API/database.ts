@@ -13,11 +13,7 @@ interface UserResult extends DatabaseResult {
 export default {
 	async findUser(uid: string): Promise<UserResult> {
 		try {
-			const user = await admin
-				.firestore()
-				.collection("users")
-				.doc(uid)
-				.get()
+			const user = await admin.firestore().collection("users").doc(uid).get()
 
 			if (user.exists) {
 				return {
