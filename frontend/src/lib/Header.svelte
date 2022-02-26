@@ -1,18 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores"
-	import { onMount } from "svelte"
-
-	let isLoggedIn = false
-	let userData: UserData = undefined
-
-	onMount(() => {
-		fetch("/api/user-data", { credentials: "same-origin" })
-			.then((data) => data.json())
-			.then((data) => {
-				isLoggedIn = true
-				userData = data
-			})
-	})
+	import { userData } from "../stores"
 </script>
 
 <header>
@@ -41,19 +29,19 @@
 		</div>
 
 		<div class="login-logout">
-			{#if isLoggedIn}
+			{#if $userData}
 				<div class="user">
 					<img
 						alt="user pfp"
-						src={`https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`}
+						src={`https://cdn.discordapp.com/avatars/${$userData.id}/${$userData.avatar}.png`}
 					/>
-					{userData.username}#{userData.discriminator}
+					{$userData.username}#{$userData.discriminator}
 				</div>
 			{/if}
 
 			<div class="login-logout-button">
-				<a href={isLoggedIn ? "/api/logout" : "/api/login"}>
-					{isLoggedIn ? "Logout" : "Login"}
+				<a href={$userData ? "/api/logout" : "/api/login"}>
+					{$userData ? "Logout" : "Login"}
 				</a>
 			</div>
 		</div>
