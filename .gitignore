@@ -2,4 +2,5 @@
 
 .firebase/
 .firebaserc
+firestore.indexes.json
 *.log
