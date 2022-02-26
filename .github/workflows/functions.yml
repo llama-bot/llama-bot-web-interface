@@ -23,8 +23,8 @@ jobs:
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: functions/build
-          path: functions/build
+          name: functions_lib
+          path: functions/lib
 
   deploy:
     name: Deploy
@@ -37,7 +37,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: functions/lib
+          name: functions_lib
           path: functions/lib
 
       - name: Deploy to Firebase

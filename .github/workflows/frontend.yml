@@ -23,7 +23,7 @@ jobs:
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: frontend/build
+          name: frontend_build
           path: frontend/build
 
   deploy:
@@ -37,7 +37,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: frontend/build
+          name: frontend_build
           path: frontend/build
 
       - name: Deploy to Firebase
