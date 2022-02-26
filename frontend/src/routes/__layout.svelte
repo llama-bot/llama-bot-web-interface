@@ -5,8 +5,6 @@
 	import Header from "$lib/Header.svelte"
 	import Footer from "$lib/Footer.svelte"
 
-	import { Circle2 } from "svelte-loading-spinners"
-
 	// load user data on page load
 	onMount(() => {
 		updateUserData()
@@ -16,8 +14,6 @@
 <Header />
 <main>
 	<slot />
-	This loader does nothing
-	<Circle2 />
 </main>
 <Footer />
 
