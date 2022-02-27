@@ -26,8 +26,12 @@ jobs:
 
       - name: Restore secrets
         run: |
-          echo EOF${{ secrets.SECRET_JSON }}EOF > ./functions/src/secret.json
-          echo EOF${{ secrets.FIREBASE_ADMINSDK_JSON }}EOF > ./functions/src/firebase-adminsdk.json
+          echo $DEV_ENV_FILE > ./functions/src/secret.json
+          echo $DEV_ENV_FILE > ./functions/src/firebase-adminsdk.json
+        shell: bash
+        env:
+          SECRET_JSON: ${{ secrets.SECRET_JSON }}
+          FIREBASE_ADMINSDK_JSON: ${{ secrets.FIREBASE_ADMINSDK_JSON }}
 
       - name: Build
         run: npm --prefix functions run build
