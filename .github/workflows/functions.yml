@@ -26,8 +26,8 @@ jobs:
 
       - name: Restore secrets
         run: |
-          echo $DEV_ENV_FILE > ./functions/src/secret.json
-          echo $DEV_ENV_FILE > ./functions/src/firebase-adminsdk.json
+          echo $SECRET_JSON > ./functions/src/secret.json
+          echo $FIREBASE_ADMINSDK_JSON > ./functions/src/firebase-adminsdk.json
         shell: bash
         env:
           SECRET_JSON: ${{ secrets.SECRET_JSON }}
