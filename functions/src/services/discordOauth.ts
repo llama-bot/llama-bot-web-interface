@@ -15,10 +15,10 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id: string, done) => {
 	try {
-		const user = await database.findUser(id)
+		const result = await database.findUser(id)
 
-		if (user.success) {
-			done(null, user.user as Express.User)
+		if (result.success) {
+			done(null, { id })
 		} else {
 			done(new Error("Failed to get user from database"))
 		}
@@ -44,17 +44,22 @@ passport.use(
 
 		async (_accessToken, _refreshToken, profile, done) => {
 			try {
-				const user = await database.findUser(profile.id)
+				const result = await database.findUser(profile.id)
 
-				if (!user.success) {
-					database.newUser(profile as Express.User)
+				const data = {
+					avatar: profile.avatar || undefined,
+					discriminator: profile.discriminator,
+					id: profile.id,
+					username: profile.username,
 				}
 
-				if (user.user) {
-					await database.updateUser(profile as Express.User)
+				if (result.success) {
+					await database.updateUser(data)
+				} else {
+					database.newUser(data)
 				}
 
-				done(null, profile as Express.User)
+				done(null, { id: profile.id })
 			} catch (error) {
 				logger.error("Error creating a user", error)
 			}
