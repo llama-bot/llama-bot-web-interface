@@ -47,6 +47,11 @@ jobs:
           name: functions_lib
           path: functions/lib
 
+      - name: Restore secrets
+        run: |
+          echo ${{ SECRET_JSON }} > ./functions/src/secret.json
+          echo ${{ FIREBASE_ADMINSDK_JSON }} > ./functions/src/firebase-adminsdk.json
+
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
