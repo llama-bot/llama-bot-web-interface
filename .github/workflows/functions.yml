@@ -49,8 +49,8 @@ jobs:
 
       - name: Restore secrets
         run: |
-          echo ${{ SECRET_JSON }} > ./functions/src/secret.json
-          echo ${{ FIREBASE_ADMINSDK_JSON }} > ./functions/src/firebase-adminsdk.json
+          echo ${{ secrets.SECRET_JSON }} > ./functions/src/secret.json
+          echo ${{ secrets.FIREBASE_ADMINSDK_JSON }} > ./functions/src/firebase-adminsdk.json
 
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
