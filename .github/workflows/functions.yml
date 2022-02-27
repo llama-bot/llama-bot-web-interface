@@ -24,6 +24,11 @@ jobs:
       - name: Install Dependencies
         run: npm --prefix functions install
 
+      - name: Restore secrets
+        run: |
+          echo ${{ secrets.SECRET_JSON }} > ./functions/src/secret.json
+          echo ${{ secrets.FIREBASE_ADMINSDK_JSON }} > ./functions/src/firebase-adminsdk.json
+
       - name: Build
         run: npm --prefix functions run build
 
@@ -46,11 +51,6 @@ jobs:
         with:
           name: functions_lib
           path: functions/lib
-
-      - name: Restore secrets
-        run: |
-          echo ${{ secrets.SECRET_JSON }} > ./functions/src/secret.json
-          echo ${{ secrets.FIREBASE_ADMINSDK_JSON }} > ./functions/src/firebase-adminsdk.json
 
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
