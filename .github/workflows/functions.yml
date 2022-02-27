@@ -36,26 +36,6 @@ jobs:
       - name: Build
         run: npm --prefix functions run build
 
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: functions_lib
-          path: functions/lib
-
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: functions_lib
-          path: functions/lib
-
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
