@@ -1,8 +1,0 @@
-/node_modules/
-
-# Compiled JavaScript files
-/lib/
-
-# secrets
-/src/secret.json
-/src/firebase-adminsdk.json
